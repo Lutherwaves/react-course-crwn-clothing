@@ -1,6 +1,7 @@
-## A sample project to follow the Complete React Developer Course on Udemy: From Zero to Mastery
+# A sample project to follow the Complete React Developer Course on Udemy: From Zero to Mastery
+- [DEMO](https://react-course-crwn-live.herokuapp.com/), hosted on Heroku
 
-### Libraries used
+## Libraries used
   - React
   - Redux
   - Redux-Saga
@@ -13,13 +14,11 @@
 
 ... and others, more info in [package.json](https://github.com/Lutherwaves/react-course-crwn-clothing/blob/master/package.json)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+#### `npm start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
