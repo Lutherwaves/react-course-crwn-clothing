@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
-import { selectIsCollectionsLoaded } from '../../redux/shop/shop.selectors';
+import { selectAreCollectionsLoaded } from '../../redux/shop/shop.selectors';
 
 import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
 import CollectionPageContainer from '../collection/collection.container';
@@ -34,7 +34,7 @@ class ShopPage extends React.Component {
   }
 }
 const mapStateToprops = createStructuredSelector({
-  isCollectionLoaded: selectIsCollectionsLoaded
+  isCollectionLoaded: selectAreCollectionsLoaded
 });
 
 const mapDispatchToProps = dispatch => ({
