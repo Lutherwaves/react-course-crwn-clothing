@@ -2,15 +2,16 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
+// Firebase configuration
 const config = {
-  apiKey: 'AIzaSyBFKO5W1vpk2IupJBz2AcHpTsu3uBXw-YA',
-  authDomain: 'reactdevelopercourse.firebaseapp.com',
-  databaseURL: 'https://reactdevelopercourse.firebaseio.com',
-  projectId: 'reactdevelopercourse',
-  storageBucket: 'reactdevelopercourse.appspot.com',
-  messagingSenderId: '36307625344',
-  appId: '1:36307625344:web:5f484fcd34db2a88a28d65',
-  measurementId: 'G-LL7J8ZMEDJ'
+  apiKey: 'AIzaSyBRXCsrJRHam2R79hs_4vba8jvivmeSekM',
+  authDomain: 'react-udemy-course-crwn.firebaseapp.com',
+  databaseURL: 'https://react-udemy-course-crwn.firebaseio.com',
+  projectId: 'react-udemy-course-crwn',
+  storageBucket: 'react-udemy-course-crwn.appspot.com',
+  messagingSenderId: '121225628585',
+  appId: '1:121225628585:web:9b07f34afc72fae6b692b8',
+  measurementId: 'G-7PHSQE3W85'
 };
 
 firebase.initializeApp(config);
@@ -39,6 +40,11 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+/**
+ * A method to populate firebase database with a collection from an array
+ * @param {string} collectionKey
+ * @param {array} objectsToAdd
+ */
 export const addCollectionAndDocuments = async (
   collectionKey,
   objectsToAdd
@@ -71,10 +77,19 @@ export const convertCollectionsSnapshotToMap = collections => {
   }, {});
 };
 
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
 
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
