@@ -12,6 +12,11 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 /**
+ * Stripe configartion
+ */
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+/**
  * EXPRESS APPLICATION
  */
 // Instantiate express application
@@ -39,4 +44,22 @@ if (process.env.NODE_ENV === 'production') {
 app.lister(port, error => {
   if (error) throw error;
   console.log('Server running on port ', +port);
+});
+
+// Payment route
+app.post('/payment', (req, res) => {
+  const body = {
+    source: req.body.token.id,
+    amount: req.body.amount,
+    currency: 'usd'
+  };
+
+  // Make stripe charge
+  stripe.charges.create(body, (stripeErr, stripeRes) => {
+    if (stripeerr) {
+      res.status(500).send({ error: stripeErr });
+    } else {
+      res.status(200).send({ success: stripeRes });
+    }
+  });
 });
