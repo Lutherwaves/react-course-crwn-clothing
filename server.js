@@ -1,13 +1,13 @@
-import { express } from 'express';
-import { cors } from 'cors';
-import bodyParser from 'body-parser';
-import path from 'path';
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const path = require('path');
 
 /**
  * CONFIGURE .env file FOR PRODUCTION
  */
 if (process.env.NODE_ENV !== 'production') {
-  import dotenv from 'dotenv';
+  const dotenv = require('dotenv');
   dotenv.config();
 }
 
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Listen to port 5000 & handle error
-app.lister(port, error => {
+app.listen(port, error => {
   if (error) throw error;
   console.log('Server running on port ', +port);
 });
