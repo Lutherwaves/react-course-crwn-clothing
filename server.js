@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-
+const compression = require('compression');
 /**
  * CONFIGURE .env file FOR PRODUCTION
  */
@@ -29,19 +29,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // Cross Origin Requests Setup
 app.use(cors());
+app.use(compression);
 
 // If server is in production, serve build folder from client, which incldues all the static files
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
 
   // Serve for any url
-  app.get('*', function(req, res) {
+  app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
 
 // Listen to port 5000 & handle error
-app.listen(port, error => {
+app.listen(port, (error) => {
   if (error) throw error;
   console.log('Server running on port ', +port);
 });
@@ -51,7 +52,7 @@ app.post('/payment', (req, res) => {
   const body = {
     source: req.body.token.id,
     amount: req.body.amount,
-    currency: 'usd'
+    currency: 'usd',
   };
 
   // Make stripe charge
