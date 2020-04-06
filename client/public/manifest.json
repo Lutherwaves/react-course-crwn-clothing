@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Crwn Clothing",
+  "name": "An example project for a React Udemy Course",
   "icons": [
     {
       "src": "favicon.ico",

@@ -3,6 +3,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const compression = require('compression');
+const enforce = require('express-sslify');
+
 /**
  * CONFIGURE .env file FOR PRODUCTION
  */
@@ -27,8 +29,11 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 // Make sure urls contain the right characters
 app.use(bodyParser.urlencoded({ extended: true }));
+// HTTP to HTTPS
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 // Cross Origin Requests Setup
 app.use(cors());
+// GZIP
 app.use(compression);
 
 // If server is in production, serve build folder from client, which incldues all the static files
@@ -45,6 +50,10 @@ if (process.env.NODE_ENV === 'production') {
 app.listen(port, (error) => {
   if (error) throw error;
   console.log('Server running on port ', +port);
+});
+
+app.get('/service-worker.js', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
 });
 
 // Payment route
